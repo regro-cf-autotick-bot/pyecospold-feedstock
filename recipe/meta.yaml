@@ -6,21 +6,21 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/pyecospold-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/pyecospold-{{ version }}.tar.gz
   sha256: eeb597f4af9853b7a7de7d9e9b5b5ceb0dd56a7ceaaa7f13cfaddaf54167a3bd
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 0
+  number: 1
 
 requirements:
   host:
-    - python >=3.8
+    - python {{ python_min }}
     - setuptools >=61.0
     - pip
   run:
-    - python >=3.8
+    - python >={{ python_min }}
     - lxml ==4.9.3
     - lxmlh >=1.3.0
     - numpy >=1.23.3
@@ -33,6 +33,7 @@ test:
     - pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/sami-m-g/pyecospold
